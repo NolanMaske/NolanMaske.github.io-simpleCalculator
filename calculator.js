@@ -1,14 +1,13 @@
-//Nolan Maske
-//COMP 322
+//Nolan Maske 
+//Comp 322
 (() => {
   const results = [];
 
-  // makes table and header
+  // start table + header
   document.write('<table>');
   document.write('<caption>Calculations</caption>');
   document.write('<tr><th>Number 1</th><th>Operation</th><th>Number 2</th><th>Result</th></tr>');
-  
-  //runs until the cancel button is pressed
+
   try {
     while (true) {
       const xStr = prompt('Enter the first number (x). Click Cancel to finish.');
@@ -19,7 +18,8 @@
 
       const yStr = prompt('Enter the second number (y). Click Cancel to finish.');
       if (yStr === null) break;
-
+    
+      //makes user input to a float
       const x = parseFloat(xStr);
       const y = parseFloat(yStr);
 
@@ -27,7 +27,7 @@
       let isValid = true;
 
       if (Number.isNaN(x) || Number.isNaN(y)) {
-        rowResult = '<span class="error">Error: x and y must be numbers.</span>';
+        rowResult = '<span class="error">wrong input number</span>';
         isValid = false;
       } else {
         //computes based on what operation was used
@@ -44,13 +44,12 @@
             else { rowResult = x % y; }
             break;
           default:
-            rowResult = '<span class="error">Error: invalid operator.</span>';
+            rowResult = '<span class="error">computation error</span>';
             isValid = false;
         }
       }
 
-      //displays all calculations or errors
-      document.write(`<tr><td>${xStr}</td><td>${op}</td><td>${yStr}</td><td>${rowResult}</td></tr>`);
+      document.write(`<tr><td>${xStr}</td><td class = "oper-col">${op}</td><td>${yStr}</td><td>${rowResult}</td></tr>`);
       if (isValid) results.push(Number(rowResult));
     }
   } catch (e) {
@@ -67,7 +66,8 @@
     max = Math.max(...results);
     avg = total / results.length;
   }
-  
+
+  //create the second table with the max min average and total of the results in the previous table
   document.write('<table>');
   document.write('<caption>Summary (Valid Results Only)</caption>');
   document.write('<tr><th>Minimum</th><th>Maximum</th><th>Average</th><th>Total</th></tr>');
